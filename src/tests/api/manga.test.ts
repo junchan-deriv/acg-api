@@ -9,7 +9,7 @@ import { Server } from "http";
  */
 //dont save anything to the filesystem
 process.env.JSON_DB_EMPHERAL = "1";
-describe("Raw Anime API", () => {
+describe("Raw Manga API", () => {
   let app: Application, db: IDatabase, server: Server;
   beforeAll(async () => {
     const _module = await import("../../index");
@@ -20,28 +20,28 @@ describe("Raw Anime API", () => {
   afterAll(() =>
     Promise.all([db.close(), new Promise((_) => server.close(_))])
   );
-  it("Invalid anime id", async () => {
-    await request(app).get("/anime/-1").expect(404);
+  it("Invalid manga id", async () => {
+    await request(app).get("/manga/-1").expect(404);
   });
-  it("Valid anime id", async () => {
-    await request(app).get("/anime/1").expect(200);
+  it("Valid manga id", async () => {
+    await request(app).get("/manga/1").expect(404);
   });
-  it("Valid anime id with their own characters", async () => {
-    await request(app).get("/anime/1/characters").expect(200);
+  it("Valid manga id with their own characters", async () => {
+    await request(app).get("/manga/1/characters").expect(404);
   });
-  it("All animes", async () => {
-    await request(app).get("/anime/all").expect(200);
+  it("All mangas", async () => {
+    await request(app).get("/manga/all").expect(200);
   });
   it("Search", async () => {
-    await request(app).get("/anime/search?q=a").expect(200);
+    await request(app).get("/manga/search?q=a").expect(200);
   });
   it("Categories", async () => {
-    await request(app).get("/anime/categories").expect(200);
+    await request(app).get("/manga/categories").expect(200);
   });
   it("Person", async () => {
-    await request(app).get("/anime/persons").expect(200);
+    await request(app).get("/manga/persons").expect(200);
   });
   it("Person with specific id", async () => {
-    await request(app).get("/anime/person/1").expect(200);
+    await request(app).get("/manga/person/1").expect(200);
   });
 });
